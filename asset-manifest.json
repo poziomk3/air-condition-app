@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/nokia-task/static/css/main.f855e6bc.css",
+    "main.js": "/nokia-task/static/js/main.5f92cc59.js",
+    "static/js/453.135c2add.chunk.js": "/nokia-task/static/js/453.135c2add.chunk.js",
+    "static/media/logo.svg": "/nokia-task/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/nokia-task/index.html",
+    "main.f855e6bc.css.map": "/nokia-task/static/css/main.f855e6bc.css.map",
+    "main.5f92cc59.js.map": "/nokia-task/static/js/main.5f92cc59.js.map",
+    "453.135c2add.chunk.js.map": "/nokia-task/static/js/453.135c2add.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.5f92cc59.js"
+  ]
+}
