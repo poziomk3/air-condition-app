@@ -1,22 +1,22 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { CityDTO } from "../types/City";
 import { getGeolocation } from "../api/getGeolocation";
 import { getAirCondition } from "../api/getAirCondition";
+import { AirConditionDTO } from "../types/AirCondition";
 
 interface CityTileProps {
   city: CityDTO;
+  airCondition: Promise<AirConditionDTO | null> | null;
 }
 
-const CityTile: FC<CityTileProps> = ({ city }) => {
+const CityTile: FC<CityTileProps> = ({ city, airCondition }) => {
+  const [condition, setCondition] = useState<AirConditionDTO | null>(null);
   useEffect(() => {
-    getGeolocation(city).then((geoLoc) =>
-      getAirCondition(geoLoc)
-        .then((data) => data.list[0])
-        .then((data) => console.log(data))
-    );
+    airCondition?.then((data) => (data ? setCondition(data) : null));
   }, []);
   return city.abbreviation && city.city ? (
-    <div className="flex flex-col   items-center gap-[0.2rem] aspect-square bg-blue-300/80 ">
+    <div className="flex flex-col   items-center gap-[0.2rem] aspect-square bg-blue-300/80 overflow-x-hidden ">
+     <div className="w-[5rem]">     {JSON.stringify(condition)}</div>
       <h1 className="font-extrabold">{city.city}</h1>
       <div className="flex flex-col items-center ">
         <img

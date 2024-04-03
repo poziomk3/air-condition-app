@@ -1,5 +1,5 @@
 export interface CityDTO {
-  city: string | null;
+  city: string;
   country: string;
-  abbreviation?: string;
+  abbreviation: string;
 }
