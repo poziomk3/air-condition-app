@@ -6,17 +6,18 @@ import { AirConditionDTO } from "../types/AirCondition";
 
 interface CityTileProps {
   city: CityDTO;
-  airCondition: Promise<AirConditionDTO | null> | null;
+  airCondition: AirConditionDTO | null;
 }
 
 const CityTile: FC<CityTileProps> = ({ city, airCondition }) => {
   const [condition, setCondition] = useState<AirConditionDTO | null>(null);
   useEffect(() => {
-    airCondition?.then((data) => (data ? setCondition(data) : null));
-  }, []);
+    console.log(airCondition);
+     setCondition(airCondition);
+  }, [airCondition]);
   return city.abbreviation && city.city ? (
     <div className="flex flex-col   items-center gap-[0.2rem] aspect-square bg-blue-300/80 overflow-x-hidden ">
-     <div className="w-[5rem]">     {JSON.stringify(condition)}</div>
+      <div className="w-[5rem]"> {JSON.stringify(condition)}</div>
       <h1 className="font-extrabold">{city.city}</h1>
       <div className="flex flex-col items-center ">
         <img

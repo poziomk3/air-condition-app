@@ -11,28 +11,39 @@ import { CityDataContext } from "./CityContext";
 import { getGeolocation } from "../api/getGeolocation";
 import { getAirCondition } from "../api/getAirCondition";
 
-export const AirConditionDataContext = createContext<
-  null | Promise<AirConditionDTO|null>[]
->(null);
+export const AirConditionDataContext = createContext<AirConditionDTO[] | null>(
+  null
+);
 
 const AirConditionContext: FC<PropsWithChildren> = ({ children }) => {
-  const [data, setData] = useState<null | Promise<AirConditionDTO|null>[]>(null);
-  const context = useContext(CityDataContext);
+  const cityData = useContext(CityDataContext);
+  const [airConditionData, setAirConditionData] = useState<
+    AirConditionDTO[] | null
+  >(null);
+
   useEffect(() => {
-    if (context)
-      setData(
-        context.map((item) =>
-          getGeolocation(item)
-            .then((geoLoc) =>
-              getAirCondition(geoLoc).then((data) => data.list[0])
-            )
-            .catch((error) => null)
-        )
-      );
-  }, [context]);
-  useEffect(() => console.log(data));
+    const fetchData = async () => {
+      if (cityData) {
+        const promises = cityData.map(async (city) => {
+          try {
+            const geoLoc = await getGeolocation(city);
+            const airCondition = await getAirCondition(geoLoc);
+            return airCondition.list[0];
+          } catch (error) {
+            console.error("Error fetching air condition:", error);
+            return null;
+          }
+        });
+        const resolvedData = await Promise.all(promises);
+        setAirConditionData(resolvedData);
+      }
+    };
+
+    fetchData();
+  }, [cityData]);
+
   return (
-    <AirConditionDataContext.Provider value={data}>
+    <AirConditionDataContext.Provider value={airConditionData}>
       {children}
     </AirConditionDataContext.Provider>
   );
