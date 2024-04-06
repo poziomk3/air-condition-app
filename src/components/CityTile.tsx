@@ -17,14 +17,15 @@ const CityTile: FC<CityTileProps> = ({ city, airCondition }) => {
   return city.abbreviation && city.city ? (
     <div className="flex flex-col p-[0.5rem]  items-center gap-[0.2rem] aspect-square bg-blue-300/80 overflow-x-hidden overflow-y-hidden ">
       {/* <div className="w-[5rem]"> {JSON.stringify(condition)}</div> */}
-      <h1 className="font-extrabold">{city.city}</h1>
-      <div className="flex flex-col items-center ">
+
+      <div className="flex flex-col items-center h-[12rem]">
+        <h1 className="font-extrabold ">{city.city}</h1>
         <img
-          className="w-[4rem] "
+          className="w-[4rem] my-auto   "
           alt={city.abbreviation}
           src={`https://flagsapi.com/${city.abbreviation}/flat/64.png`}
         />
-        <h2 className="italic">{city.country}</h2>
+        <h2 className="italic mt-auto">{city.country}</h2>
       </div>
       <div className="  w-full h-full flex justify-center items-center bg-black/20 rounded-sm">
         {!condition ? (
