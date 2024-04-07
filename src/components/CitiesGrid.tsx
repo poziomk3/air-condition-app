@@ -33,8 +33,8 @@ const CitiesGrid = () => {
   });
   return (
     <>
-      <div className="flex  w-full gap-[0.2rem] p-[0.5rem] flex-col md:flex-row">
-        <div className="bg-black/70 backdrop-blur-md  flex flex-col  gap-[0.2rem] flex-1 p-[2rem]">
+      <div className="z-[100] relative flex  w-full gap-[0.2rem] p-[0.5rem] flex-col md:flex-row">
+        <div className="z-[100] bg-black/70 backdrop-blur-md  flex flex-col  gap-[0.2rem] flex-1 p-[2rem]">
           <h1 className="text-[1.5rem] pb-[0.3rem] text-white">Type your filters:</h1>
           <div className="flex w-full gap-[0.2rem]">
             <input
@@ -60,8 +60,8 @@ const CitiesGrid = () => {
             isMulti
           />
         </div>
-        <div className="w-full h-[0.2rem] bg-black/20 md:hidden" />
-        <div className="bg-black/20 backdrop-blur-md flex flex-col  gap-[0.2rem] flex-1 p-[2rem]">
+        <div className=" w-full h-[0.2rem] bg-black/20 md:hidden" />
+        <div className="z-[10] bg-black/20 backdrop-blur-md flex flex-col  gap-[0.2rem] flex-1 p-[2rem]">
           <h1 className="text-[1.5rem] pb-[0.3rem]">Type your filters:</h1>
           <Select
             className="mt-auto"
@@ -70,7 +70,7 @@ const CitiesGrid = () => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-5 gap-[1.2rem]">
+      <div className="  grid sm:grid-cols-2 gap-[1.2rem] px-[0.2rem] lg:grid-cols-3 mx-auto max-w-[1200px]">
         {filteredData?.map((city, index) => (
           <CityTile
             airCondition={
