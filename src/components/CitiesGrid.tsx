@@ -3,13 +3,19 @@ import { CityDataContext } from "../context/CityContext";
 import CityTile from "./CityTile";
 import { AirConditionDataContext } from "../context/AirConditionContext";
 import { CityDTO } from "../types/City";
-import { predCity, predCountry } from "../utils/filters";
+import { predAqi, predCity, predCountry } from "../utils/filters";
+import "react-dropdown/style.css";
+import Select, { MultiValue } from "react-select";
 
 const CitiesGrid = () => {
   const data = useContext(CityDataContext);
   const condition = useContext(AirConditionDataContext);
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState<MultiValue<{
+    value: string;
+    label: string;
+  }> | null>(null);
   const [filters, setFilters] = useState<CityDTO[] | null>([]);
   const handleCityChange = (e: any) => {
     setCity(e.target.value);
@@ -17,15 +23,26 @@ const CitiesGrid = () => {
   const handleCountryChange = (e: any) => {
     setCountry(e.target.value);
   };
-  
+  const options = [
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+    { value: "5", label: "5" },
+  ];
+  console.log(selectedOptions, options);
   useEffect(() => {
-    if (data)
+    if (data && condition)
       setFilters(
         data?.filter(
-          (item) => predCity(item, city) && predCountry(item, country)
+          (item, index) =>
+            predCity(item, city) &&
+            predCountry(item, country) &&
+            predAqi(condition[data.indexOf(item)], [...(selectedOptions ?? [])])
         )
       );
-  }, [city, country, data]);
+  }, [city, country, data, condition, selectedOptions]);
+
   return (
     <>
       <input type="text" value={city} onChange={handleCityChange} />
@@ -35,10 +52,16 @@ const CitiesGrid = () => {
         value={country}
         onChange={handleCountryChange}
       />
+      <Select
+        defaultValue={selectedOptions}
+        onChange={setSelectedOptions}
+        options={options}
+        isMulti
+      />
       <div className="grid grid-cols-5 gap-[0.2rem]">
         {filters?.map((city, index) => (
           <CityTile
-            airCondition={condition?.[index] ?? null}
+            airCondition={condition?.[data?.indexOf(city) ?? 0] ?? null}
             city={city}
             key={city.country}
           />
@@ -49,6 +72,3 @@ const CitiesGrid = () => {
 };
 
 export default CitiesGrid;
-function filterOutCities(item: CityDTO, city: string) {
-  throw new Error("Function not implemented.");
-}

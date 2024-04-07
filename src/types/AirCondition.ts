@@ -2,7 +2,7 @@ export interface AirConditionDTO {
   main: {
     aqi: number;
   };
-  components:{
+  components: {
     co: number;
     no: number;
     no2: number;
@@ -11,7 +11,6 @@ export interface AirConditionDTO {
     pm2_5: number;
     pm10: number;
     nh3: number;
-  }
-    dt: number;
-    
+  };
+  dt: number;
 }
