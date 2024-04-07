@@ -1,50 +1,27 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { CityDataContext } from "../context/CityContext";
 import CityTile from "./CityTile";
 import { AirConditionDataContext } from "../context/AirConditionContext";
 import { CityDTO } from "../types/City";
-import { predAqi, predCity, predCountry } from "../utils/filters";
 import "react-dropdown/style.css";
-import Select, { MultiValue } from "react-select";
+import Select from "react-select";
 import { useSort } from "../hooks/useSort";
-
+import { useFilter } from "../hooks/useFilter";
 
 const CitiesGrid = () => {
   const data = useContext(CityDataContext);
   const condition = useContext(AirConditionDataContext);
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState<MultiValue<{
-    value: string;
-    label: string;
-  }> | null>(null);
   const [filters, setFilters] = useState<CityDTO[] | null>([]);
-  const handleCityChange = (e: any) => {
-    setCity(e.target.value);
-  };
-  const handleCountryChange = (e: any) => {
-    setCountry(e.target.value);
-  };
-  const options = [
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
-    { value: "4", label: "4" },
-    { value: "5", label: "5" },
-  ];
-  console.log(selectedOptions, options);
-  useEffect(() => {
-    if (data && condition)
-      setFilters(
-        data?.filter(
-          (item, index) =>
-            predCity(item, city) &&
-            predCountry(item, country) &&
-            predAqi(condition[data.indexOf(item)], [...(selectedOptions ?? [])])
-        )
-      );
-  }, [city, country, data, condition, selectedOptions]);
 
+  const {
+    country,
+    city,
+    handleCityChange,
+    handleCountryChange,
+    selectedOptions,
+    setSelectedOptions,
+    options,
+  } = useFilter({ setFilters, condition, data });
   const { sortOptions, setSortOption } = useSort({
     filters,
     condition,
