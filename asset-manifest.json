@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/nokia-task/static/css/main.32c66ce1.css",
-    "main.js": "/nokia-task/static/js/main.5b6c0ed8.js",
+    "main.css": "/nokia-task/static/css/main.bd20b6b4.css",
+    "main.js": "/nokia-task/static/js/main.7b7a7c9e.js",
     "static/media/wallpaper.jpg": "/nokia-task/static/media/wallpaper.20696ff210cb9f18125f.jpg",
     "index.html": "/nokia-task/index.html",
-    "main.32c66ce1.css.map": "/nokia-task/static/css/main.32c66ce1.css.map",
-    "main.5b6c0ed8.js.map": "/nokia-task/static/js/main.5b6c0ed8.js.map"
+    "main.bd20b6b4.css.map": "/nokia-task/static/css/main.bd20b6b4.css.map",
+    "main.7b7a7c9e.js.map": "/nokia-task/static/js/main.7b7a7c9e.js.map"
   },
   "entrypoints": [
-    "static/css/main.32c66ce1.css",
-    "static/js/main.5b6c0ed8.js"
+    "static/css/main.bd20b6b4.css",
+    "static/js/main.7b7a7c9e.js"
   ]
 }
